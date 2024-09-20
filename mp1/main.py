@@ -14,6 +14,17 @@ if __name__ == "__main__":
     User_dict = cp1_1_parse_homes(sys.argv[2])
     debug("{0} users processed.".format(len(User_dict)))
     cp1_2_parse_friends(sys.argv[3], User_dict)
+
+    # for x in User_dict:
+    #     user = User_dict[x]
+    #     if not user.home_shared:
+    #         print(user.id)
+    #         print(user.home_lat)
+    #         print(user.home_lon)
+    #         print(list(dict.fromkeys(user.friends)))
+    #         print(user.home_shared)
+    #         print("____________________")
+
     if sys.argv[1] == 'cp1':
         u_cnt, u_noloc_cnt, u_noloc_nofnds_cnt, p_b, p_u1, p_u2 = cp1_3_answers(User_dict)
         print("User_Count:{0}".format(int(u_cnt)))

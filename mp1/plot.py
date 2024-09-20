@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 
-from mpl_toolkits.basemap import Basemap
-
+from mpl_toolkits.basemap import Basemap 
 
 # Draws a map plotting geolocation of uid and uid's friends
 def draw_map(uid, dictUsers):
