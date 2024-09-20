@@ -52,7 +52,7 @@ def cp2_2_improved_inference(dictUsers):
     for key, value in dictUsers.items():
         user_object = value
 
-        if user_object.home_share:
+        if user_object.home_shared:
             dictUsersInferred[key] = user_object
 
         else:
