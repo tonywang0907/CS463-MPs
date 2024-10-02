@@ -33,6 +33,34 @@ public class Server {
         */
  	    // ------ Your code goes here. --------
         
+        // m = serverInputs.length
+        for (int j = 0; j < serverInputs.length; j++) {
+
+            // Evaluate PSJ
+            BigInteger encryptedPSJ = BigInteger.ZERO;
+
+            BigInteger sJ = serverInputs[j];
+
+            // n = encryptedPolyCoeffs.length
+            for (int l = 0; l < encryptedPolyCoeffs.length; l++) {
+                
+                // Compute using multiplication by a constant
+                BigInteger sJL = sJ.pow(l);
+
+                encryptedPSJ = paillier.add(encryptedPSJ, paillier.const_mul(encryptedPolyCoeffs[l], sJL));
+            }
+
+            // Computer RJ
+            BigInteger rJ = randomBigInt(sJ);
+
+            // Compute E_K(rj P(sj) + sj)
+            BigInteger encryptedKey = paillier.add(paillier.const_mul(rJ, encryptedPSJ), paillier.Encryption(sJ));
+
+            // Set encryptedPolyEval[j] = E_K(rj P(sj) + sj)
+            encryptedPolyEval[j] = encryptedKey;
+
+        }
+
         StaticUtils.write(encryptedPolyEval, clientFilename+".out");
     }
 

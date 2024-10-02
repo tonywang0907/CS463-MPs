@@ -138,7 +138,7 @@ public class Paillier {
 
     public BigInteger const_mul(BigInteger ct, BigInteger constant){
         return ct.modPow(constant, nsquare);
-
+        
     }
 
     public BigInteger getPublicKey(){
