@@ -3,7 +3,7 @@ import numpy as np
 import util
 import mp4_model as models
 
-input_file_folder = f'../../data'
+input_file_folder = f'data'
 X_file_name = f'{input_file_folder}/apg-X.json'
 y_file_name = f'{input_file_folder}/apg-y.json'
 meta_file_name = f'{input_file_folder}/apg-meta.json'
