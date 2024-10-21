@@ -38,6 +38,6 @@ if __name__ == '__main__':
     train_model(num_features=None) # use all the features
     print('=' * 50)
     
-    train_model(num_features=1000) # select 5000 features first, then train a new model
+    train_model(num_features=5000) # select 5000 features first, then train a new model
     end = timer()
     print(f'tik tok: {end - start:.4f} seconds')
