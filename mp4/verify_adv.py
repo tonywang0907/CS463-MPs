@@ -6,7 +6,7 @@ import os
 class Verifier:
     def __init__(self, jsonFile):
         self.jsonFile = jsonFile
-        self.features = [0] * 1000
+        self.features = [0] * 5000
 
     def getFeatureArray(self, featureList, addedFeatureList):
         pass
