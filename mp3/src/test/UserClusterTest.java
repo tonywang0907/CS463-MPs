@@ -10,7 +10,7 @@ import main.UserCluster;
 public class UserClusterTest {
 	public static void main(String[] args) {
 		UserCluster uc = new UserCluster();
-		uc.readTransactions("transactions.txt");
+		uc.readTransactions("transactions-test.txt");
 		uc.mergeAddresses();
 		if (!uc.writeKeyMap("keyMap.txt")) {
 			System.err.println("Cannot write to keyMap.txt!");
@@ -30,7 +30,7 @@ public class UserClusterTest {
 			e.printStackTrace();
 		}
 		
-		if (!uc.writeUserGraph("transactions.txt", "userGraph.txt")){
+		if (!uc.writeUserGraph("transactions-test.txt", "userGraph.txt")){
 			System.err.println("Cannot write user graph!");
 		}
 

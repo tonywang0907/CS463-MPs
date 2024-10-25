@@ -18,7 +18,55 @@ public class DatasetGenerator {
 
 	public boolean writeTransactions() {
 		// TODO implement me
-    return false;
+		BlockExplorer explorer = new BlockExplorer();
+
+		try (FileWriter writer = new FileWriter(file)) {
+			int startHeight = 265852;
+			int endHeight = 266085;
+
+			for (int height = startHeight; height <= endHeight; height++) {
+				List<Block> blocks = explorer.getBlocksAtHeight(height);
+
+				for (Block block : blocks) {
+					List<Transaction> transactions = block.getTransactions();
+					
+					for (Transaction transaction : transactions) {
+						// Check if it's a coinbase transaction
+						boolean isCoinbaseTransaction = false;
+						for (Input input : transaction.getInputs()) {
+							if (input.getPreviousOutput().getValue() == 0) {
+								isCoinbaseTransaction = true;
+								break;
+							}
+						}
+
+						// Skip coinbase transaction 
+						if (isCoinbaseTransaction) {
+							continue;
+						}
+
+						String transactionHash = transaction.getHash();
+
+						// Record all inputs
+						for (Input input : transaction.getInputs()) {
+							String inputRecord = generateInputRecord(transactionHash, input.getPreviousOutput().getAddress(), input.getPreviousOutput().getValue());
+							writer.write(inputRecord + "\n");
+						}
+
+						// Record all outputs 
+						for (Output output : transaction.getOutputs()) {
+							String outputRecord = generateOutputRecord(transactionHash, output.getAddress(), output.getValue());
+							writer.write(outputRecord + "\n");
+						}
+					}
+				}
+			}
+			writer.close();
+			return true;
+		} catch (APIException | IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
