@@ -19,9 +19,9 @@ if __name__ == "__main__":
         "./49875A9C25EB18945A8E7F27C8188834CFF48070413604D477763EC7A20E9C4A.json"
     )
     input_file_folder = f"data"
-    # featureList is the output file with the 1000 in the name
+    # featureList is the output file with the 5000 in the name
     # aFList_# is the additional features added to the json file of the outputs
-    fList = f"{input_file_folder}/all_feature_names_1000.json"
+    fList = f"{input_file_folder}/all_feature_names_5000.json"
     aFList_5E06B7 = "added-features-5E06B7.txt"
     aFList_49875A = "added-features-49875A.txt"
 
