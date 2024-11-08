@@ -28,10 +28,14 @@ def train_model(num_features):
 def stat(svm_model):
     ''' TODO: implement me '''
     # return in the following order
-    train_cnt = test_cnt = train_mal_cnt = train_benign_cnt = test_mal_cnt = test_benign_cnt = None
+    train_cnt = len(svm_model.y_train)
+    test_cnt = len(svm_model.y_test)
+    train_mal_cnt = np.sum(svm_model.y_train == 1)
+    train_benign_cnt = train_cnt - train_mal_cnt
+    test_mal_cnt = np.sum(svm_model.y_test == 1)
+    test_benign_cnt = test_cnt - test_mal_cnt
+
     return train_cnt, test_cnt, train_mal_cnt, train_benign_cnt, test_mal_cnt, test_benign_cnt
-
-
 
 if __name__ == '__main__':
     start = timer()

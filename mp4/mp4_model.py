@@ -41,10 +41,17 @@ class SVMModel:
         cols = None
         if self._num_features is not None:
             # TODO
-            pass
+            lsvc = LinearSVC(C=self.svm_c, penalty='l2', max_iter=self.max_iter, dual=True)
+            lsvc.fit(X_train, y_train)
+
+            # sum up weight of each feature 
+            feature_importpances = np.abs(lsvc.coef_).sum(axis=0)
+
+            # dimension reduction
+            cols = np.argsort(feature_importpances)[-5000:]
         else:
-            pass
             # TODO
+            cols = np.arange(X_train.shape[1])
         ############
         return cols
 
@@ -66,7 +73,8 @@ class SVM(SVMModel):
 
     def fit(self, X_train, y_train):
         ##############TODO: implement me ########
-        clf = None
+        clf = LinearSVC(C=self.svm_c, max_iter=self.max_iter)
+        clf.fit(X_train, y_train)
         return clf
 
     def generate_model_name(self):
