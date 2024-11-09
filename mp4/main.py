@@ -39,9 +39,20 @@ def stat(svm_model):
 
 if __name__ == '__main__':
     start = timer()
+    print("features none")
     train_model(num_features=None) # use all the features
     print('=' * 50)
     
+    print("features 5k")
     train_model(num_features=5000) # select 5000 features first, then train a new model
     end = timer()
     print(f'tik tok: {end - start:.4f} seconds')
+
+# The line train_model(num_features=None) uses all features, while train_model(num_features=5000) restricts it to the top 5,000.
+# Comparing these results, we observe that using feature selection generally yields better performance than using all features.
+# This improvement likely occurs because feature selection can remove irrelevant features, allowing the model to generalize better
+# and produce more accurate predictions. Additionally, reducing the feature space can improve efficiency, as training time and memory 
+# usage are optimized, which is particularly important for high-dimensional data. However, there is a trade-off between feature 
+# selection and performance. While feature selection often enhances accuracy, there is a risk of losing crucial information, 
+# which could lead to reduced accuracy if important features are excluded.
+
