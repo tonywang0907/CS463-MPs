@@ -1,12 +1,5 @@
-{"app_permissions::name='com_w82818f5681ce68f00d10ce74c192ba44_permission_C2D_MESSAGE'": 1,
-"app_permissions::name='android_permission_GET_TASKS'": 1,
-"app_permissions::name='cn_JK_P2PNetCam_permission_C2D_MESSAGE'": 1,
-"app_permissions::name='android_permission_SEND_SMS'": 1,
-"app_permissions::name='com_xiaomi_sdk_permission_PAYMENT'": 1,
-"api_permissions::android_permission_RECORD_AUDIO": 1,
-"app_permissions::name='com_weduoceanautocad2013hindi_permission_C2D_MESSAGE'": 1,
-"app_permissions::name='com_wGLOBALPROPERTY_permission_C2D_MESSAGE'": 1,
-"app_permissions::name='android_permission_RESTART_PACKAGES'": 1,
-"app_permissions::name='com_wAmerpoortTV_permission_C2D_MESSAGE'": 1,
-"app_permissions::name='com_wTURSKISERIIITV_permission_C2D_MESSAGE'": 1,
-}
+app_permissions::name='android_hardware_sensor_accelerometer'
+app_permissions::name='android_permission_BATTERY_STATS'
+app_permissions::name='android_permission_SET_TIME_ZONE'
+app_permissions::name='com_w82818f5681ce68f00d10ce74c192ba44_permission_C2D_MESSAGE'
+app_permissions::name='android_permission_ACCESS_NETWORK_STATE'
