@@ -16,13 +16,17 @@ class Verifier:
         with open(addedFeatureList, 'r') as f:
             added_features = f.readlines()  
         
-        added_features_set = set([feature.strip() for feature in added_features])  
-        
+        added_features_list = []
+        for feature in added_features:
+            added_features_list.append(feature.strip()) 
+
         with open(self.jsonFile, 'r') as f:
             original_features = json.load(f)
         
-        feature_name_to_index = {name: idx for idx, name in enumerate(all_features)}
-        
+        feature_name_to_index = {}
+        for idx, name in enumerate(all_features):
+            feature_name_to_index[name] = idx       
+
         feature_vector = [0] * len(all_features)
         
         for feature in original_features:
@@ -30,7 +34,7 @@ class Verifier:
                 idx = feature_name_to_index[feature]
                 feature_vector[idx] = 1
         
-        for feature in added_features_set:
+        for feature in added_features_list:
             if feature in feature_name_to_index:
                 idx = feature_name_to_index[feature]
                 feature_vector[idx] = 1
@@ -99,7 +103,7 @@ if __name__ == "__main__":
             adversarial_features_5E06B7.append(top_influential_names[i])
         elif top_influential_coef[i] < 0:
             adversarial_features_49875A.append(top_influential_names[i])
-            
+
     # Add adversarial features to "added-features-5E06B7.txt" 
     with open(aFList_5E06B7, 'w') as f:
         for feature in adversarial_features_5E06B7:
@@ -127,3 +131,8 @@ if __name__ == "__main__":
     # {"5E06B7": 1, "49875A": 0}
     
     # Please put your thought as code comments below why these features might be helpful to make an adversarial sample.
+
+    # The features with the greatest positive coefficients are associated with mailicious behavior, 
+    # while those with negative coefficients are linked to benign behavior. So by adding the positive
+    # features to bengin data and negative ones to malicious data, we can manipulate the model's 
+    # decision boundary, causing the model to misclassify the data and create an adversarial attack.
