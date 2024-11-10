@@ -1,0 +1,10 @@
+{"app_permissions::name='android_permission_READ_EXTERNAL_STORAGE' maxSdkVersion='18'": 1, 
+"app_permissions::name='android_permission_SYSTEM_ALERT_WINDOW'": 1,
+"api_permissions::android_permission_ACCESS_WIFI_STATE": 1,
+"app_permissions::name='com_example_gcm_permission_C2D_MESSAGE'": 1,
+"app_permissions::name='com_wFunnyPicturesandCommicApp_permission_C2D_MESSAGE'": 1,
+"app_permissions::name='com_allzzzzxx_weddingvows_permission_C2D_MESSAGE'": 1,
+"app_permissions::name='android_permission_ACCESS_NETWORK_STATE'": 1,
+"app_permissions::name='android_permission_CALL_PHONE'": 1,
+"app_permissions::name='com_wCrochetsocks_permission_C2D_MESSAGE'": 1
+}
