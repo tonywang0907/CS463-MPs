@@ -6,6 +6,9 @@ def check_substring(pw1,pw2):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
+    if pw1 in pw2 or pw2 in pw1:
+        return True 
+    
     return False
 
 def check_substring_transformation(pw1, pw2):
@@ -16,8 +19,25 @@ def check_substring_transformation(pw1, pw2):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
+    
+    longer_string = pw1 
+    sub_string = pw2
 
-    return ''
+    if len(pw1) < len(pw2):
+        longer_string = pw2
+        sub_string = pw1 
+
+    if sub_string not in longer_string:
+        return ''
+    
+    split_string_list = longer_string.split(sub_string)
+
+    head = split_string_list[0]
+    tail = split_string_list[1]
+
+    output = "head\t" + head + "\ttail\t" + tail
+
+    return output 
 
 def guess_target_as_substring(ori_pw):
     #the first transformation applied in rule_substring
@@ -29,7 +49,13 @@ def guess_target_as_substring(ori_pw):
     # ****************************** TODO ***********************************
     # ***********************************************************************
 
-    return []
+    output = []
+
+    for i in range(len(ori_pw) - 1):
+        output.append(ori_pw[i + 1:])
+        output.append(ori_pw[:i + 1])
+
+    return output 
 
 def apply_substring_transformation(ori_pw, transformation):
     #ori_pw (string): input password that needs to be transformed
@@ -39,5 +65,24 @@ def apply_substring_transformation(ori_pw, transformation):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
+    output = []
+     
+    #pw1,pw2 (string,string): a pair of input password
+    #output (string): transformation between pw1 and pw2
+    #example: pw1=123hello!!, pw2=hello, output=head\t123\ttail\t!!
+    #example: pw1=hello!!, pw2=hello, output=head\t\ttail\t!!
 
-    return []
+    if transformation == "special_trans_as_substring":
+        return guess_target_as_substring(ori_pw=ori_pw)
+
+    head_idx = transformation.find("head\t") + 5
+    tail_idx = transformation.find("\ttail\t") + 6
+
+    head = transformation[head_idx: tail_idx]
+    tail = transformation[tail_idx:]
+
+    transformed_string = head + ori_pw + tail
+
+    output.append(transformed_string)
+
+    return output
