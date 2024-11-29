@@ -86,18 +86,18 @@ def apply_capt_transformation(ori_pw, transformation):
         char_transformed -= 1 
         # if first char lower make it capitalize 
         if ori_pw[0].islower():
-            transformed_string += ori_pw[0].upper() + ori_pw[1:]
+            transformed_string = ori_pw[0].upper() + ori_pw[1:]
         # else change from upper to lower
         else:
-            transformed_string += ori_pw[0].lower() + ori_pw[1:]
+            transformed_string = ori_pw[0].lower() + ori_pw[1:]
 
     if "tail" in components:
         char_transformed -= 1
         # similar to head
         if ori_pw[-1].islower():
-            transformed_string += ori_pw[:-1] + ori_pw[-1].upper()
+            transformed_string = ori_pw[:-1] + ori_pw[-1].upper()
         else:
-            transformed_string += ori_pw[:-1] + ori_pw[-1].lower()
+            transformed_string = ori_pw[:-1] + ori_pw[-1].lower()
 
     # recursion for combination qs
     def apply_capt_transformation_helper(pw, count, pos):
