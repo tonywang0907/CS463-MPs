@@ -64,16 +64,30 @@ def apply_leet_transformation(ori_pw, transformation):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
-    
-    #pw1,pw2 (string,string): a pair of input password
-    #output (string): transformation between pw1 and pw2
-    #example: pw1=abcd3 pw2 = @bcde, transformation = 3e\ta@ because pw1->pw2:3->e and a->@ and '3e'<'a@' for the order
-    #for simplicity, duplicate item is allowed. example: pw1=abcda pw2 = @bcd@, transformation = a@\ta@ 
 
     output = []
     leet_pairs = transformation.split('\t')
 
-    # def apply_leet_transformation_helper(pw, leet_pairs, output, pos):
+    def apply_leet_transformation_helper(pw, leet_pairs, output, index):
+        # add to output when the # of chars transformed are reached
+        if len(leet_pairs) == index:
+            output.append(pw)
+            return
+
+        char1, char2 = transformation[index][0], transformation[index][1]
+
+        for i in range(len(pw)):
+            if pw[i] == char1:
+                updated_pw = pw[:i] + char2 + pw[i+1:]
+                apply_leet_transformation_helper(updated_pw, leet_pairs, output, index + 1)
+
+
+        for i in range(len(pw)):
+            if pw[i] == char2:
+                updated_pw = pw[:i] + char1 + pw[i+1:]
+                apply_leet_transformation_helper(updated_pw, leet_pairs, output, index + 1)
+    
+    apply_leet_transformation_helper(ori_pw, leet_pairs, output, 0)
 
     return output
 
