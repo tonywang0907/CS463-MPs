@@ -65,24 +65,32 @@ def apply_substring_transformation(ori_pw, transformation):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
-    output = []
-     
-    #pw1,pw2 (string,string): a pair of input password
-    #output (string): transformation between pw1 and pw2
-    #example: pw1=123hello!!, pw2=hello, output=head\t123\ttail\t!!
-    #example: pw1=hello!!, pw2=hello, output=head\t\ttail\t!!
 
     if transformation == "special_trans_as_substring":
-        return guess_target_as_substring(ori_pw=ori_pw)
+        return guess_target_as_substring(ori_pw)
 
-    head_idx = transformation.find("head\t") + 5
-    tail_idx = transformation.find("\ttail\t") + 6
+    if len(transformation) == 0:
+        return [ori_pw]
+        
+    head_idx = transformation.find("head\t") 
+    
+    if transformation.startswith("tail\t"):
+        tail_idx = transformation.find("tail\t") 
+        tail_idx_start = tail_idx + 5
+    else:
+        tail_idx = transformation.find("\ttail\t") 
+        tail_idx_start = tail_idx + 6
 
-    head = transformation[head_idx: tail_idx]
-    tail = transformation[tail_idx:]
-
+    head, tail = "", ""
+    
+    if head_idx != -1:
+        head = transformation[head_idx + 5 : tail_idx]
+        if tail_idx == -1:
+            head = transformation[head_idx + 5 :]
+    
+    if tail_idx != -1 :
+        tail = transformation[tail_idx_start:]
+    
     transformed_string = head + ori_pw + tail
 
-    output.append(transformed_string)
-
-    return output
+    return [transformed_string]
