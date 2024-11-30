@@ -40,18 +40,17 @@ def check_leet_transformation(pw1, pw2):
     if len(pw1) != len(pw2):
         return ''
     
-    output = ''
+    transformations = []
+
     for i in range(len(pw1)):
-        if pw1[i] != pw2[i]:
+        if pw1[i] != pw2[i]: 
             for leet_pair in leet_list:
                 if pw1[i] in leet_pair and pw2[i] in leet_pair:
-                    transform = sorted([pw1[i], pw2[i]])
-                    output += transform[0]
-                    output += transform[1]
-                    output += "\t"
+                    transform = pw1[i] + pw2[i]
+                    transformations.append(transform)
                     break
 
-    return output
+    return '\t'.join(sorted(transformations))
 
 def apply_leet_transformation(ori_pw, transformation):
     #ori_pw (string): input password that needs to be transformed
