@@ -74,32 +74,35 @@ def apply_capt_transformation(ori_pw, transformation):
     #example pw1 = abcde, pw2 = AbcDe, transformation = head\t2 (head char is capt transformed, in total 2 chars are capt transformed)
     #example pw1 = abcdE, pw2 = AbcDe, transformation = head\ttail\t3 (head char and tail chars are capt transformed, in total 3 chars are capt transformed)
     #example pw1 = abcde, pw2 = abcDe, transformation = 1 (in total 1 chars are capt transformed)
-    
-    output = []
 
-    transformed_string = ""
     components = transformation.split("\t")
     char_transformed = int(components[-1])
 
+    transformed_string = ori_pw
+
+    if char_transformed == 0:
+        return [transformed_string]
+    
     # found head
     if "head" in components:
         char_transformed -= 1 
         # if first char lower make it capitalize 
-        if ori_pw[0].islower():
-            transformed_string = ori_pw[0].upper() + ori_pw[1:]
+        if transformed_string[0].islower():
+            transformed_string = transformed_string[0].upper() + transformed_string[1:]
         # else change from upper to lower
-        else:
-            transformed_string = ori_pw[0].lower() + ori_pw[1:]
+        elif transformed_string[0].isalpha():
+            transformed_string = transformed_string[0].lower() + transformed_string[1:]
 
     if "tail" in components:
         char_transformed -= 1
         # similar to head
-        if ori_pw[-1].islower():
-            transformed_string = ori_pw[:-1] + ori_pw[-1].upper()
-        else:
-            transformed_string = ori_pw[:-1] + ori_pw[-1].lower()
+        if transformed_string[-1].islower():
+            transformed_string = transformed_string[:-1] + transformed_string[-1].upper()
+        elif transformed_string[-1].isalpha():
+            transformed_string = transformed_string[:-1] + transformed_string[-1].lower()
 
     # recursion for combination qs
+
     def apply_capt_transformation_helper(pw, count, pos):
         if count == 0:
             output.append(pw)
@@ -111,9 +114,10 @@ def apply_capt_transformation(ori_pw, transformation):
         
             if pw[i].islower():
                 apply_capt_transformation_helper(pw[:i] + pw[i].upper() + pw[i+1:], count - 1, i + 1)
-            else:
+            elif pw[i].isalpha():
                 apply_capt_transformation_helper(pw[:i] + pw[i].lower() + pw[i+1:], count - 1, i + 1)
 
+    output = []
     # starting position 1 bc already checked head 
     apply_capt_transformation_helper(transformed_string, char_transformed, 1)
 
