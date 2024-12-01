@@ -63,30 +63,32 @@ def apply_leet_transformation(ori_pw, transformation):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
-
+    leet_pairs = transformation.split("\t")
     output = []
-    leet_pairs = transformation.split('\t')
 
-    def apply_leet_transformation_helper(pw, leet_pairs, output, index):
-        # add to output when the # of chars transformed are reached
-        if len(leet_pairs) == index:
+    def apply_leet_transformation_helper(pw, index, dir):
+        # Base case: if all transformations are processed, append the password
+        if index == len(leet_pairs):
             output.append(pw)
             return
 
-        char1, char2 = transformation[index][0], transformation[index][1]
+        char1, char2 = leet_pairs[index][0], leet_pairs[index][1]
 
-        for i in range(len(pw)):
-            if pw[i] == char1:
-                updated_pw = pw[:i] + char2 + pw[i+1:]
-                apply_leet_transformation_helper(updated_pw, leet_pairs, output, index + 1)
+        if dir == "forward":
+            for i in range(len(pw)):
+                if pw[i] == char1:
+                    updated_pw = pw[:i] + char2 + pw[i + 1:]
+                    apply_leet_transformation_helper(updated_pw, index + 1, dir)
 
+        elif dir == "backward":
+            for i in range(len(pw)):
+                if pw[i] == char2:
+                    updated_pw = pw[:i] + char1 + pw[i + 1:]
+                    apply_leet_transformation_helper(updated_pw, index + 1, dir)
 
-        for i in range(len(pw)):
-            if pw[i] == char2:
-                updated_pw = pw[:i] + char1 + pw[i+1:]
-                apply_leet_transformation_helper(updated_pw, leet_pairs, output, index + 1)
-    
-    apply_leet_transformation_helper(ori_pw, leet_pairs, output, 0)
+    apply_leet_transformation_helper(ori_pw, 0, "forward")
+
+    apply_leet_transformation_helper(ori_pw, 0, "backward")
 
     return output
 
