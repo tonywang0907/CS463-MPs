@@ -66,34 +66,66 @@ def vectorize(password):
     #           each element should be an integer!
 
     # 1. password length
-
+    f1 = len(password)
 
     # 2. number of lowercase letters
-    
+    f2 = 0
+    for c in password:
+        if c.islower():
+            f2 += 1
 
     # 3. number of uppercase letters
-   
+    f3 = 0
+    for c in password:
+        if c.isupper():
+            f3 += 1
 
     # 4. number of digits
-   
+    f4 = 0
+    for c in password:
+        if c.isdigit():
+            f4 += 1
 
     # 5. number of special characters (not a-z, A-Z, 0-9)
-   
+    f5 = f1 - f2 - f3 - f4
 
     # 6. letter-only password? (1 for yes, 0 for no)
-    
+    f6 = 1
+    if f4 > 0 or f5 > 0:
+        f6 = 0
 
     # 7. digit-only password? (1 for yes, 0 for no)
-    
+    f7 = 0
+    if f1 == f4:
+        f7 = 1
 
     # 8. number of repeated character (Put each character into lower case. For each pair of characters next to each other, if they are the same, count 1. e.g. 'aabb' has 2 repeated characters.)
     
+    f8 = 0
+    
+    for i in range(len(password) - 1):
+        if password.lower()[i] == password.lower()[i + 1]:
+            f8 += 1
 
     # 9. max number of consec. letters
-    
+    f9, count = 0, 0
+
+    for c in password:
+        if c.isalpha():
+            count += 1
+            f9 = max(f9, count)
+        else:
+            count = 0
 
     # 10. max number of consec. digits
-   
+    f10, count = 0, 0
+
+    for c in password:
+        if c.isdigit():
+            count += 1
+            f10 = max(f10, count)
+        else:
+            count = 0
 
     # 11. max number of sequential keys (we have implemented this for you, just skip)
     f11 = walk_checker(seq_graph,password)
@@ -103,25 +135,57 @@ def vectorize(password):
    
 
     # 12. Englishword-only password? (this should be exactly the same as feature 6 in this MP)
-   
+    f12 = f6
 
     # 13. number of consec. digits (head)
-   
+    f13 = 0 
+    for c in password:
+        if c.isdigit():
+            f13 += 1
+        else:
+            break
 
     # 14. number of consec. digits (tail)
-    
+    f14 = 0 
+    for c in reversed(password):
+        if c.isdigit():
+            f14 += 1
+        else:
+            break
 
     # 15. number of consec. letters (head)
-    
+    f15 = 0 
+    for c in password:
+        if c.isalpha():
+            f15 += 1
+        else:
+            break
 
     # 16. number of consec. letters (tail)
-   
+    f16 = 0 
+    for c in reversed(password):
+        if c.isalpha():
+            f16 += 1
+        else:
+            break
 
     # 17. number of consec. special characters (head)
-   
+    f17 = 0 
+    for c in password:
+        if not c.isalnum():
+            f17 += 1
+        else:
+            break 
 
     # 18. number of consec. special characters (tail)
-   
+    f18 = 0 
+    for c in reversed(password):
+        if not c.isalnum():
+            f18 += 1
+        else:
+            break  
+
+    vector = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18]
 
     return np.array(vector)
 
