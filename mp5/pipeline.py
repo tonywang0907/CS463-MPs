@@ -212,11 +212,24 @@ def sequential_guessor(password):
     # ***********************************************************************
     # ****************************** TODO ***********************************
     # ***********************************************************************
+    # Get class probabilities and sort by priority
+    class_probs = model.predict_proba(vectorize(password).reshape(1, -1))[0]
+    class_order = np.argsort(class_probs)[::-1]
 
-    guess = None
-    yield guess
+    # Iterate over classes in priority order
+    for class_idx in class_order:
+        transformation_list = transformation_mat[guess_classes[class_idx]]
 
+        transform_func = guess_functions[guess_classes[class_idx]]
 
+        for transformation in transformation_list:
+            # apply_seqkey_transformation - requires additional argument!!!
+            if transform_func == apply_seqkey_transformation:
+                guesses = transform_func(password, transformation, seq_graph)
+            else:
+                guesses = transform_func(password, transformation)
+
+            yield from guesses
 
 # guess the password rotationally in the priority of class given by bayes estimation
 # guess one transformation from one class at a time then switch to next lower-prioritized class
